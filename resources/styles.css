@@ -1,0 +1,76 @@
+.Steps {
+  x: 232;
+  y: 14;
+  width: 100;
+  height: 64;
+}
+
+.HeartRate {
+  x: 232;
+  y: 50%-32;
+  width: 100;
+  height: 64;
+}
+
+.Mmol {
+  x: 232;
+  y: 100%-78;
+  width: 100;
+  height: 64;
+}
+
+.Value {
+  x: 0;
+  y: 26;
+  font-family: Fabrikat-Bold;
+  font-size: 36;
+  text-anchor: start;
+  text-length: 64;
+  fill: fb-light-gray;
+}
+
+.Title {
+  x: 0;
+  y: 100%;
+  font-family: Fabrikat-Bold;
+  font-size: 20;
+  text-anchor: start;
+  text-length: 64;
+  fill: fb-dark-gray;
+}
+
+.Clock {
+  x: 14;
+}
+
+.FirstNumber {
+  x: 0;
+  y: 75;
+  width: 25;
+  height: 80;
+  fill: red;
+}
+
+.SecondNumber {
+  x: 100;
+  y: 75;
+  width: 25;
+  height: 80;
+  fill: red;
+}
+
+.ThirdNumber {
+  x: 0;
+  y: 100%-118;
+  width: 25;
+  height: 80;
+  fill: red;
+}
+
+.FourthNumber {
+  x: 100;
+  y: 100%-118;
+  width: 25;
+  height: 80;
+  fill: red;
+}

@@ -1,0 +1,36 @@
+<svg viewport-fill="black">
+  <defs>
+    <symbol id='clock'>
+      <g>
+        <svg id='main'>
+          <text class='FirstNumber'>1</text>
+          <text class='SecondNumber'>2</text>
+          <text class='ThirdNumber'>3</text>
+          <text class='FourthNumber'>4</text>
+        </svg>
+      </g>
+    </symbol>
+
+    <symbol id='Stats'>
+      <text id='Value' class='Value' />
+      <text id='Title' class='Title' />
+    </symbol>
+  </defs>
+
+  <use href='#clock' class='Clock' />
+
+  <use id='Steps' href='#Stats' class='Steps'>
+    <set href='Title' attributeName='text-buffer' to='Steps' />
+    <set href='Value' attributeName='text-buffer' to='-' />
+  </use>
+
+  <use id='HeartRate' href='#Stats' class='HeartRate'>
+    <set href='Title' attributeName='text-buffer' to='Bpm' />
+    <set href='Value' attributeName='text-buffer' to='-' />
+  </use>
+
+  <use id='Mmol' href='#Stats' class='Mmol'>
+    <set href='Title' attributeName='text-buffer' to='mmol/L' />
+    <set href='Value' attributeName='text-buffer' to='-' />
+  </use>
+</svg>
