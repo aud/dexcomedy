@@ -1,6 +1,6 @@
 import asap from "fitbit-asap/app"
 import document from "document";
-import {hrm, steps} from './default-stats';
+import {hrm, steps, clock} from './default-stats';
 
 const getChildElementById = id => {
   return document.getElementById(id).firstChild;
@@ -14,6 +14,17 @@ const registerStatsCallbacks = () => {
   // Steps
   const stepsElm = getChildElementById('Steps');
   steps(count => stepsElm.text = count);
+
+  // Clock
+  const hoursElm   = getChildElementById('Hours');
+  const minutesElm = getChildElementById('Minutes');
+  const secondsElm = getChildElementById('Seconds');
+
+  clock(({hours, minutes, seconds}) => {
+    hoursElm.text = hours;
+    minutesElm.text = minutes;
+    secondsElm.text = seconds;
+  });
 }
 
 const registerDexcomCallbacks = () => {

@@ -1,14 +1,9 @@
 <svg viewport-fill="black">
   <defs>
-    <symbol id='clock'>
-      <g>
-        <svg id='main'>
-          <text class='FirstNumber'>1</text>
-          <text class='SecondNumber'>2</text>
-          <text class='ThirdNumber'>3</text>
-          <text class='FourthNumber'>4</text>
-        </svg>
-      </g>
+    <symbol id='Clock'>
+      <text id='HoursRef' class="Hours" />
+      <text id='MinutesRef' class="Minutes" />
+      <text id='SecondsRef' class="Seconds" />
     </symbol>
 
     <symbol id='Stats'>
@@ -17,7 +12,17 @@
     </symbol>
   </defs>
 
-  <use href='#clock' class='Clock' />
+  <use id='Minutes' href='#Clock' class='Minutes'>
+    <set href='MinutesRef' attributeName='text-buffer' to='' />
+  </use>
+
+  <use id='Hours' href='#Clock' class='Hours'>
+    <set href='HoursRef' attributeName='text-buffer' to='' />
+  </use>
+
+  <use id='Seconds' href='#Clock' class='Seconds'>
+    <set href='SecondsRef' attributeName='text-buffer' to='' />
+  </use>
 
   <use id='Steps' href='#Stats' class='Steps'>
     <set href='Title' attributeName='text-buffer' to='Steps' />

@@ -1,6 +1,7 @@
 import {HeartRateSensor} from 'heart-rate';
 import {display} from 'display';
-import {today} from "user-activity";
+import {today} from 'user-activity';
+import {clock as fitbitClock} from 'clock';
 
 const STEP_CALLBACK_BUFFER = 3000; // 1s
 
@@ -33,4 +34,18 @@ export function steps(callback) {
   });
 
   start();
+}
+
+export function clock(callback) {
+  fitbitClock.granularity = 'seconds';
+
+  const withPadding = val => ('0' + val).slice(-2);
+
+  fitbitClock.ontick = evt => {
+    const hours   = withPadding(evt.date.getHours());
+    const minutes = withPadding(evt.date.getMinutes());
+    const seconds = withPadding(evt.date.getSeconds());
+
+    callback({hours, minutes, seconds});
+  };
 }

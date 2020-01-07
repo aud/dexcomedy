@@ -43,34 +43,29 @@
   x: 14;
 }
 
-.FirstNumber {
+.Hours {
   x: 0;
   y: 75;
-  width: 25;
+  width: 100%;
   height: 80;
   fill: red;
+  text-length: 5;
 }
 
-.SecondNumber {
-  x: 100;
-  y: 75;
-  width: 25;
-  height: 80;
-  fill: red;
-}
-
-.ThirdNumber {
+.Minutes {
   x: 0;
   y: 100%-118;
-  width: 25;
+  width: 100%;
   height: 80;
   fill: red;
+  text-length: 5;
 }
 
-.FourthNumber {
-  x: 100;
-  y: 100%-118;
-  width: 25;
+.Seconds {
+  x: 0;
+  y: 100%-80;
+  width: 100%;
   height: 80;
   fill: red;
+  text-length: 5;
 }
