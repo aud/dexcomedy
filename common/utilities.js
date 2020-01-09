@@ -1,3 +1,23 @@
+const DAYS = [
+  'Sun',
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri',
+  'Sat',
+];
+
+// Returns the current date in the format of (eg. Wed. 8)
+export function normalizedDate() {
+  const today = new Date();
+
+  const dayOfWeek  = today.getDay();
+  const dayOfMonth = today.getDate();
+
+  return DAYS[dayOfWeek] + '. ' + dayOfMonth;
+}
+
 // http://www.bcchildrens.ca/endocrinology-diabetes-site/documents/glucoseunits.pdf
 // [BG (mmol/L) * 18] = BG (mg/dL)
 //
@@ -11,19 +31,19 @@ export function mgdlToMmol(mgdl) {
 export function normalizedTrend(trend) {
   switch(trend) {
     case 1:
-      return 'doubleRaisedArrow';
+      return 'doubleRaising';
     case 2:
-      return 'singleRaisedArrow';
+      return 'singleRaising';
     case 3:
-      return 'halfRaisedArrow';
+      return 'halfRaising';
     case 4:
-      return 'evenArrow';
+      return 'even';
     case 5:
-      return 'halfDroppedArrow';
+      return 'halfDropping';
     case 6:
-      return 'singleDroppedArrow';
+      return 'singleDropping';
     case 7:
-      return 'doubleDroppedArrow';
+      return 'doubleDropping';
     default:
       return 'unknownValue';
   }
@@ -32,19 +52,22 @@ export function normalizedTrend(trend) {
 // Dexcom serializes their dates in /Date(msecs)/ format. Guessing this is from
 // ASP.NET JSON or something alike.
 //
-// This returns a normalized time, handling seconds and minutes (Dexcom share
-// returns result <= 5 mins)
-export function normalizedLastUpdatedTime(date) {
+// This returns the seconds elapsed (Dexcom share returns result <= 5 mins)
+export function lastUpdatedTimeInSeconds(date) {
   const current = new Date(parseInt(date.substr(6)));
   const elapsed = (new Date() - current) / 1000;
 
-  if (elapsed >= 60) {
-    const mins = Math.floor(elapsed % 3600 / 60);
-    const secs = Math.floor(elapsed % 60);
+  return Math.round(elapsed);
+}
+
+export function normalizedLastUpdatedTime(seconds) {
+  if (seconds >= 60) {
+    const mins = Math.floor(seconds % 3600 / 60);
+    const secs = Math.floor(seconds % 60);
 
     return `${mins}m ${secs}s`;
-  } else {
-    const secs = Math.floor(elapsed % 60);
-    return `${secs}s`;
   }
+
+  const secs = Math.floor(seconds % 60);
+  return `${secs}s`;
 }

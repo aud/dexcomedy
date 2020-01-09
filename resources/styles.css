@@ -1,71 +1,81 @@
+.Mmol {
+  x: 5;
+  y: 100%-170;
+  font-size: 75;
+  font-family: SevilleSharp-Book;
+  fill: white;
+  text-length: 64;
+}
+
+.MmolText {
+  x: 101;
+  y: 100%-170;
+  font-size: 12;
+  font-family: SevilleSharp-Book;
+  fill: white;
+  text-length: 64;
+}
+
+.MmolLastUpdated {
+  x: 10;
+  y: 100%-150;
+  font-size: 15;
+  font-family: SevilleSharp-Book;
+  fill: white;
+  text-length: 64;
+}
+
+.MmolTrend {
+  x: 10;
+  y: 100%-130;
+  font-size: 15;
+  font-family: SevilleSharp-Book;
+  fill: white;
+  text-length: 64;
+}
+
 .Steps {
-  x: 232;
-  y: 14;
+  x: 215;
+  y: 100%-175;
   width: 100;
   height: 64;
 }
 
 .HeartRate {
-  x: 232;
-  y: 50%-32;
+  x: 215;
+  y: 100%-60;
   width: 100;
   height: 64;
 }
 
-.Mmol {
-  x: 232;
-  y: 100%-78;
-  width: 100;
-  height: 64;
+.Icon {
+  height: 32;
+  width: 32;
+  x: -15%;
+  y: 22;
 }
 
-.Value {
-  x: 0;
-  y: 26;
-  font-family: Fabrikat-Bold;
-  font-size: 36;
-  text-anchor: start;
+.BatteryIcon {
+  height: 40;
+  width: 40;
+}
+
+.ArrowIcon {
+  height: 30;
+  width: 40;
+  x: 100;
+  y: 100%-240;
+}
+
+.tile-list-item {
+  height: 70;
+  x: 190;
   text-length: 64;
-  fill: fb-light-gray;
 }
 
-.Title {
-  x: 0;
-  y: 100%;
-  font-family: Fabrikat-Bold;
-  font-size: 20;
-  text-anchor: start;
+.tile-list-item text {
+  height: 30;
+  font-family: SevilleSharp-Book;
+  fill: white;
   text-length: 64;
-  fill: fb-dark-gray;
-}
-
-.Clock {
-  x: 14;
-}
-
-.Hours {
-  x: 0;
-  y: 75;
-  width: 100%;
-  height: 80;
-  fill: red;
-  text-length: 5;
-}
-
-.Minutes {
-  x: 0;
-  y: 100%-118;
-  width: 100%;
-  height: 80;
-  fill: red;
-  text-length: 5;
-}
-
-.Seconds {
-  x: 0;
-  y: 100%-80;
-  width: 100%;
-  height: 80;
-  fill: red;
-  text-length: 5;
 }

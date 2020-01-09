@@ -1,8 +1,8 @@
 import asap from "fitbit-asap/companion"
 import {DEXCOM_LOGIN_URL, DEXCOM_APP_ID, dexcomLatestGloucoseUrl} from '../common/dexcom-config';
-import {mgdlToMmol, normalizedTrend, normalizedLastUpdatedTime} from '../common/utilities';
+import {mgdlToMmol, normalizedTrend, lastUpdatedTimeInSeconds} from '../common/utilities';
 
-const UPDATE_GLOUCOSE_LEVELS_BUFFER = 300000; // 30s
+const UPDATE_GLOUCOSE_LEVELS_BUFFER = 30000; // 30s
 
 async function fetchDexcomSessionData() {
   const sessionId = await fetchDexcomSessionId({
@@ -46,7 +46,7 @@ async function pushLatestGlucoseLevels() {
     mmol: mgdlToMmol(latestEntry.Value),
     trend: normalizedTrend(latestEntry.Trend),
     // 'ST' seems to be the last updated date
-    lastUpdated: normalizedLastUpdatedTime(latestEntry.ST),
+    lastUpdated: lastUpdatedTimeInSeconds(latestEntry.ST),
   })
 }
 
