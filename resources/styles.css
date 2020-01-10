@@ -1,35 +1,26 @@
 .Mmol {
   x: 5;
-  y: 100%-170;
-  font-size: 75;
-  font-family: SevilleSharp-Book;
-  fill: white;
-  text-length: 64;
-}
-
-.MmolText {
-  x: 101;
-  y: 100%-170;
-  font-size: 12;
-  font-family: SevilleSharp-Book;
+  y: 100%-125;
+  font-size: 120;
+  font-family: Tungsten-Medium;
   fill: white;
   text-length: 64;
 }
 
 .MmolLastUpdated {
   x: 10;
-  y: 100%-150;
-  font-size: 15;
-  font-family: SevilleSharp-Book;
+  y: 100%-95;
+  font-size: 25;
+  font-family: Tungsten-Medium;
   fill: white;
   text-length: 64;
 }
 
 .MmolTrend {
   x: 10;
-  y: 100%-130;
+  y: 100%-100;
   font-size: 15;
-  font-family: SevilleSharp-Book;
+  font-family: Tungsten-Medium;
   fill: white;
   text-length: 64;
 }
@@ -61,21 +52,22 @@
 }
 
 .ArrowIcon {
-  height: 30;
-  width: 40;
-  x: 100;
-  y: 100%-240;
+  height: 25;
+  width: 30;
+  x: 95;
+  y: 100%-115;
 }
 
 .tile-list-item {
   height: 70;
-  x: 190;
+  x: 215;
   text-length: 64;
 }
 
 .tile-list-item text {
   height: 30;
-  font-family: SevilleSharp-Book;
+  font-family: Tungsten-Medium;
+  font-size: 40;
   fill: white;
   text-length: 64;
 }

@@ -23,30 +23,39 @@ export function normalizedDate() {
 //
 // Return the normalized mmol/L, rounded to the tenth decimal
 export function mgdlToMmol(mgdl) {
-  return +(mgdl / 18).toFixed(2);
+  return +(mgdl / 18).toFixed(1);
 }
 
 // For some reason Dexcom ranks trends 1-7 (1 = max raise, 7 = max drop).
 // The strings returned here directly correspond to their asset name in /resources
-export function normalizedTrend(trend) {
+export function normalizedTrendAssetName(trend) {
+  let assetName;
+
   switch(trend) {
     case 1:
-      return 'doubleRaising';
+      assetName = 'arrow-double-up';
+      break;
     case 2:
-      return 'singleRaising';
+      assetName = 'arrow-up';
+      break
     case 3:
-      return 'halfRaising';
+      assetName = 'arrow-half-up';
+      break
     case 4:
-      return 'even';
+      assetName = 'arrow-right';
+      break
     case 5:
-      return 'halfDropping';
+      assetName = 'arrow-half-down';
+      break
     case 6:
-      return 'singleDropping';
+      assetName = 'arrow-down';
+      break
     case 7:
-      return 'doubleDropping';
-    default:
-      return 'unknownValue';
+      assetName = 'arrow-double-down';
+      break
   }
+
+  return `images/${assetName}.png`;
 }
 
 // Dexcom serializes their dates in /Date(msecs)/ format. Guessing this is from

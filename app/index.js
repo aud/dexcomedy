@@ -27,13 +27,13 @@ const registerStatsCallbacks = () => {
   dateElm.text = normalizedDate();
 
   // Mmol
-  asap.onmessage = ({mmol, trend, lastUpdated}) => {
+  asap.onmessage = ({mmol, trendAsset, lastUpdated}) => {
     const mmolElm            = document.getElementById('Mmol');
     const mmolLastUpdatedElm = document.getElementById('MmolLastUpdated');
-    const mmolTrendElm = document.getElementById('MmolTrend');
+    const mmolTrendArrowElm = document.getElementById('ArrowIcon');
 
     mmolElm.text = mmol;
-    mmolTrendElm.text = `(${trend})`;
+    mmolTrendArrowElm.href = trendAsset;
     mmolLastUpdatedElm.text = normalizedLastUpdatedTime(lastUpdated);
 
     // Create an artifical ticker

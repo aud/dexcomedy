@@ -1,7 +1,7 @@
 <svg viewport-fill="black">
   <text class="Mmol" id="Mmol">-</text>
   <text class="MmolLastUpdated" id="MmolLastUpdated"></text>
-  <text class="MmolTrend" id="MmolTrend"></text>
+  <image class="ArrowIcon" id="ArrowIcon" href="" />
 
   <use href="#tile-list" id="ListRef">
     <use href="#tile-list-header" class="tile-list-item" id="Clock">
