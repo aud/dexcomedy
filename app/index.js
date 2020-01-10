@@ -26,6 +26,11 @@ const registerStatsCallbacks = () => {
   const dateElm = getChildElementById('Date');
   dateElm.text = normalizedDate();
 
+  let interval;
+  const lazySetInterval = func => {
+    interval = setInterval(func, TICK_UPDATE_CALLBACK_BUFFER);
+  }
+
   // Mmol
   asap.onmessage = ({mmol, trendAsset, lastUpdated}) => {
     const mmolElm            = document.getElementById('Mmol');
@@ -37,7 +42,6 @@ const registerStatsCallbacks = () => {
     mmolLastUpdatedElm.text = normalizedLastUpdatedTime(lastUpdated);
 
     // Create an artifical ticker
-    let interval;
     let lastUpdatedTicker = lastUpdated;
 
     const tickUpdateCallback = () => {
@@ -46,8 +50,11 @@ const registerStatsCallbacks = () => {
     };
 
     // Teardown and re-setup interval to avoid concurrent updates
-    if (interval) clearInterval(interval)
-    interval = setInterval(tickUpdateCallback, TICK_UPDATE_CALLBACK_BUFFER)
+    if (interval) {
+      clearInterval(interval)
+    }
+
+    lazySetInterval(tickUpdateCallback);
   }
 
   // Battery
