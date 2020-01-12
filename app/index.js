@@ -2,11 +2,44 @@ import asap from "fitbit-asap/app"
 import document from "document";
 import {normalizedDate, normalizedLastUpdatedTime} from '../common/utilities';
 import {hrm, steps, clock, battery} from './default-stats';
+import {
+  startAlert,
+  stopAlert,
+  lowMmolLevelDetected,
+  highMmolLevelDetected
+} from './notifications';
 
 const TICK_UPDATE_CALLBACK_BUFFER = 1000; // 1s
 
 const getChildElementById = id => {
   return document.getElementById(id).firstChild;
+}
+
+const createAlertPrompt = ({type, mmol}) => {
+  const mainElm = document.getElementById('Main')
+  const alertElm = document.getElementById('Alert');
+  const detectedTextElm = document.getElementById('DetectedText');
+  const muteButtonElm = alertElm.getElementById('MuteButton');
+  const mmolLevelElm = alertElm.getElementById('MmolLevel');
+
+  const showMainDisplay = () => mainElm.style.display = 'inline';
+  const hideMainDisplay = () => mainElm.style.display = 'none';
+  const showAlertDisplay = () => alertElm.style.display = 'inline';
+  const hideAlertDisplay = () => alertElm.style.display = 'none';
+
+  // Show alert
+  mmolLevelElm.text = mmol
+  detectedTextElm.text = type + ' detected';
+  startAlert();
+  hideMainDisplay();
+  showAlertDisplay();
+
+  muteButtonElm.onclick = _evt => {
+    stopAlert();
+
+    hideAlertDisplay();
+    showMainDisplay();
+  }
 }
 
 const registerStatsCallbacks = () => {
@@ -26,12 +59,12 @@ const registerStatsCallbacks = () => {
   const dateElm = getChildElementById('Date');
   dateElm.text = normalizedDate();
 
+  // Mmol
   let interval;
   const lazySetInterval = func => {
     interval = setInterval(func, TICK_UPDATE_CALLBACK_BUFFER);
   }
 
-  // Mmol
   asap.onmessage = ({mmol, trendAsset, lastUpdated}) => {
     const mmolElm            = document.getElementById('Mmol');
     const mmolLastUpdatedElm = document.getElementById('MmolLastUpdated');
@@ -50,20 +83,16 @@ const registerStatsCallbacks = () => {
     };
 
     // Teardown and re-setup interval to avoid concurrent updates
-    if (interval) {
-      clearInterval(interval)
-    }
-
+    if (interval) clearInterval(interval)
     lazySetInterval(tickUpdateCallback);
+
+    // Alerting
+    if (lowMmolLevelDetected(mmol)) {
+      createAlertPrompt({type: 'Low', mmol});
+    } else if (highMmolLevelDetected(mmol)) {
+      createAlertPrompt({type: 'High', mmol});
+    }
   }
-
-  // Battery
-  // const batteryElm = document.getElementById('BatteryLevel');
-
-  // battery(({colour, calculatedWidth}) => {
-  //   batteryElm.width = calculatedWidth
-  //   batteryElm.style.fill = colour;
-  // });
 }
 
 // Main

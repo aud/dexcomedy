@@ -1,27 +1,46 @@
 <svg viewport-fill="black">
-  <text class="Mmol" id="Mmol">-</text>
-  <text class="MmolLastUpdated" id="MmolLastUpdated"></text>
-  <image class="ArrowIcon" id="ArrowIcon" href="" />
+  <svg id="Alert" display="none">
+    <rect class="full-size" fill="fb-black" />
 
-  <use href="#tile-list" id="ListRef">
-    <use href="#tile-list-header" class="tile-list-item" id="Clock">
-      <text>-</text>
-      <image class='Icon' href="images/clock.png" />
+    <use href="#mixed-text-center-mid" id="DetectedText" class="dialog-mixed-text" fill="fb-white">
+      <set href="#top-padding" attributeName="display" to="none" />
+      <set href="#header/text" attributeName="text-buffer" to="Low detected" />
+      <set href="#header/text" attributeName="fill" to="fb-magenta"/>
+      <text class="MmolLevel" id="MmolLevel">-</text>
+      <set href="#bottom-padding" attributeName="display" to="none" />
     </use>
 
-    <use href="#tile-list-item" class="tile-list-item" id="Date">
-      <text>-</text>
-      <image class='Icon' href="images/calendar.png" />
+    <use id="MuteButton" class="MuteButton" href="#square-button-negative">
+      <set href="#text" attributeName="text-buffer" to="Mute" />
+      <set href="#text" attributeName="text-anchor" to="middle" />
     </use>
+  </svg>
 
-    <use href="#tile-list-item" class="tile-list-item" id="Steps">
-      <text>-</text>
-      <image class='Icon' href="images/shoe.png" />
-    </use>
+  <svg id="Main">
+    <text class="Mmol" id="Mmol">-</text>
+    <text class="MmolLastUpdated" id="MmolLastUpdated"></text>
+    <image class="ArrowIcon" id="ArrowIcon" href="" />
 
-    <use href="#tile-list-item" class="tile-list-item" id="HeartRate">
-      <text>-</text>
-      <image class='Icon' href="images/heart.png" />
+    <use href="#tile-list" id="ListRef">
+      <use href="#tile-list-header" class="tile-list-item" id="Clock">
+        <text>-</text>
+        <image class='Icon' href="images/clock.png" />
+      </use>
+
+      <use href="#tile-list-item" class="tile-list-item" id="Date">
+        <text>-</text>
+        <image class='Icon' href="images/calendar.png" />
+      </use>
+
+      <use href="#tile-list-item" class="tile-list-item" id="Steps">
+        <text>-</text>
+        <image class='Icon' href="images/shoe.png" />
+      </use>
+
+      <use href="#tile-list-item" class="tile-list-item" id="HeartRate">
+        <text>-</text>
+        <image class='Icon' href="images/heart.png" />
+      </use>
     </use>
-  </use>
+  </svg>
 </svg>

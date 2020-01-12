@@ -25,6 +25,10 @@
   text-length: 64;
 }
 
+.MuteButton {
+  y: 100%-85;
+}
+
 .Steps {
   x: 215;
   y: 100%-175;
@@ -46,9 +50,10 @@
   y: 22;
 }
 
-.BatteryIcon {
-  height: 40;
-  width: 40;
+.MmolLevel {
+  x: 140;
+  y: 100%-50;
+  text-length: 5;
 }
 
 .ArrowIcon {
