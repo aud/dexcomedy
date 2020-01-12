@@ -50,6 +50,12 @@
   y: 22;
 }
 
+.DetectedHeader {
+  font-size: 40;
+  text-length: 64;
+  x: 32;
+}
+
 .MmolLevel {
   x: 140;
   y: 100%-50;

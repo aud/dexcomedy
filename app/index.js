@@ -6,7 +6,9 @@ import {
   startAlert,
   stopAlert,
   lowMmolLevelDetected,
-  highMmolLevelDetected
+  highMmolLevelDetected,
+  lowPrevDismissed,
+  highPrevDismissed,
 } from './notifications';
 
 const TICK_UPDATE_CALLBACK_BUFFER = 1000; // 1s
@@ -18,9 +20,9 @@ const getChildElementById = id => {
 const createAlertPrompt = ({type, mmol}) => {
   const mainElm = document.getElementById('Main')
   const alertElm = document.getElementById('Alert');
-  const detectedTextElm = document.getElementById('DetectedText');
   const muteButtonElm = alertElm.getElementById('MuteButton');
   const mmolLevelElm = alertElm.getElementById('MmolLevel');
+  const detectedHeaderElm = alertElm.getElementById('DetectedHeader');
 
   const showMainDisplay = () => mainElm.style.display = 'inline';
   const hideMainDisplay = () => mainElm.style.display = 'none';
@@ -29,13 +31,13 @@ const createAlertPrompt = ({type, mmol}) => {
 
   // Show alert
   mmolLevelElm.text = mmol
-  detectedTextElm.text = type + ' detected';
-  startAlert();
+  detectedHeaderElm.text = type + ' detected';
+  startAlert({type});
   hideMainDisplay();
   showAlertDisplay();
 
   muteButtonElm.onclick = _evt => {
-    stopAlert();
+    stopAlert({type});
 
     hideAlertDisplay();
     showMainDisplay();
@@ -88,8 +90,12 @@ const registerStatsCallbacks = () => {
 
     // Alerting
     if (lowMmolLevelDetected(mmol)) {
+      if (lowPrevDismissed()) return;
+
       createAlertPrompt({type: 'Low', mmol});
     } else if (highMmolLevelDetected(mmol)) {
+      if (highPrevDismissed()) return;
+
       createAlertPrompt({type: 'High', mmol});
     }
   }
