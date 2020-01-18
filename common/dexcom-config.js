@@ -8,3 +8,5 @@ export const DEXCOM_APP_ID = "d8665ade-9673-4e27-9ff6-92db4ce13d13";
 // Settings keys
 export const DEXCOM_USERNAME_KEY = 'dexcom_user';
 export const DEXCOM_PASSWORD_KEY = 'dexcom_pass';
+export const DEXCOM_LOW_GLOUCOSE_THRESHOLD = 'low_threshold';
+export const DEXCOM_HIGH_GLOUCOSE_THRESHOLD = 'high_threshold';

@@ -67,16 +67,22 @@ const registerStatsCallbacks = () => {
     interval = setInterval(func, TICK_UPDATE_CALLBACK_BUFFER);
   }
 
-  asap.onmessage = ({mmol, trendAsset, lastUpdated}) => {
+  asap.onmessage = ({
+    mmol,
+    trendAsset,
+    lastUpdated,
+    lowThreshold,
+    highThreshold
+  }) => {
     const mmolElm            = document.getElementById('Mmol');
     const mmolLastUpdatedElm = document.getElementById('MmolLastUpdated');
-    const mmolTrendArrowElm = document.getElementById('ArrowIcon');
+    const mmolTrendArrowElm  = document.getElementById('ArrowIcon');
 
-    mmolElm.text = mmol;
-    mmolTrendArrowElm.href = trendAsset;
+    mmolElm.text            = mmol;
+    mmolTrendArrowElm.href  = trendAsset;
     mmolLastUpdatedElm.text = normalizedLastUpdatedTime(lastUpdated);
 
-    // Create an artifical ticker
+    // Create an artificial ticker
     let lastUpdatedTicker = lastUpdated;
 
     const tickUpdateCallback = () => {
@@ -89,11 +95,11 @@ const registerStatsCallbacks = () => {
     lazySetInterval(tickUpdateCallback);
 
     // Alerting
-    if (lowMmolLevelDetected(mmol)) {
+    if (lowMmolLevelDetected({mmol, lowThreshold})) {
       if (lowPrevDismissed()) return;
 
       createAlertPrompt({type: 'Low', mmol});
-    } else if (highMmolLevelDetected(mmol)) {
+    } else if (highMmolLevelDetected({mmol, highThreshold})) {
       if (highPrevDismissed()) return;
 
       createAlertPrompt({type: 'High', mmol});

@@ -3,12 +3,9 @@ import {vibration} from 'haptics';
 // https://dev.fitbit.com/build/reference/device-api/haptics/
 const MAX_VIBRATION = 'nudge-max';
 const VIBRATION_INTERVAL = 2000; // 2s
+
 const HIGH_ALERT_TYPE = 'High';
 const LOW_ALERT_TYPE = 'Low';
-
-// TODO: Extract to configurable settings
-const LOW_GLOUCOSE_THRESHOLD = 4.4;
-const HIGH_GLOUCOSE_THRESHOLD = 11.1;
 
 let lowDismissed = false;
 let highDismissed = false;
@@ -46,10 +43,10 @@ export function stopAlert({type}) {
   }
 }
 
-export function lowMmolLevelDetected(mmol) {
-  return mmol <= LOW_GLOUCOSE_THRESHOLD;
+export function lowMmolLevelDetected({mmol, lowThreshold}) {
+  return mmol <= lowThreshold;
 }
 
-export function highMmolLevelDetected(mmol) {
-  return mmol >= HIGH_GLOUCOSE_THRESHOLD;
+export function highMmolLevelDetected({mmol, highThreshold}) {
+  return mmol >= highThreshold;
 }

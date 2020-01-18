@@ -1,7 +1,10 @@
 import {settingsStorage} from "settings";
-
-const DEXCOM_USERNAME_KEY = 'dexcom_user';
-const DEXCOM_PASSWORD_KEY = 'dexcom_pwd';
+import {
+  DEXCOM_USERNAME_KEY,
+  DEXCOM_PASSWORD_KEY,
+  DEXCOM_LOW_GLOUCOSE_THRESHOLD,
+  DEXCOM_HIGH_GLOUCOSE_THRESHOLD
+} from '../common/dexcom-config';
 
 export function getDexcomUsername() {
   return deserializedContents(DEXCOM_USERNAME_KEY);
@@ -11,6 +14,15 @@ export function getDexcomPassword() {
   return deserializedContents(DEXCOM_PASSWORD_KEY);
 }
 
+export function getDexcomLowThreshold() {
+  return deserializedContents(DEXCOM_LOW_GLOUCOSE_THRESHOLD);
+}
+
+export function getDexcomHighThreshold() {
+  return deserializedContents(DEXCOM_HIGH_GLOUCOSE_THRESHOLD);
+}
+
+// Fitbit injects the values into `name` key
 function deserializedContents(key) {
-  return JSON.parse(settingsStorage.getItem(key)) || {};
+  return JSON.parse(settingsStorage.getItem(key) || '{}').name;
 }
