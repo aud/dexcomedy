@@ -12,7 +12,6 @@
     "appUUID": "afc962ef-e367-4ecd-ac84-d3259ed94e40",
     "appType": "clockface",
     "appDisplayName": "Dexcomedy",
-    "iconFile": "resources/icon.png",
     "wipeColor": "#ffffff",
     "requestedPermissions": [
       "access_heart_rate",
@@ -21,7 +20,6 @@
       "access_internet"
     ],
     "buildTargets": [
-      "higgs",
       "meson",
       "gemini",
       "mira"
