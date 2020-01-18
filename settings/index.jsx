@@ -49,7 +49,7 @@ const ThresholdSection = () => {
 
       <TextInput
         title="Low gloucose threshold"
-        label="High gloucose threshold"
+        label="Low gloucose threshold"
         settingsKey={DEXCOM_LOW_GLOUCOSE_THRESHOLD}
       />
     </Section>
