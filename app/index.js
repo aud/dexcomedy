@@ -12,6 +12,7 @@ import {
 } from './notifications';
 
 const TICK_UPDATE_CALLBACK_BUFFER = 1000; // 1s
+const STALE_DATA_BUFFER           = 600; // 10m
 
 const getChildElementById = id => {
   return document.getElementById(id).firstChild;
@@ -86,6 +87,12 @@ const registerStatsCallbacks = () => {
     let lastUpdatedTicker = lastUpdated;
 
     const tickUpdateCallback = () => {
+      // If last updated buffer has exceeded, show dash instead of potentially
+      // outdated data.
+      if (lastUpdatedTicker >= STALE_DATA_BUFFER) {
+        mmolElm.text = '-';
+      }
+
       lastUpdatedTicker += 1;
       mmolLastUpdatedElm.text = normalizedLastUpdatedTime(lastUpdatedTicker);
     };

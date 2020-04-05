@@ -53,6 +53,11 @@ export function normalizedTrendAssetName(trend) {
     case 7:
       assetName = 'arrow-double-down';
       break
+    case 8:
+      // The receiver cannot work out if the glucose is going up or down and
+      // how fast.
+      assetName = 'unknown';
+      break;
   }
 
   return `images/${assetName}.png`;
@@ -63,7 +68,9 @@ export function normalizedTrendAssetName(trend) {
 //
 // This returns the seconds elapsed (Dexcom share returns result <= 5 mins)
 export function lastUpdatedTimeInSeconds(date) {
-  const current = new Date(parseInt(date.substr(6)));
+  const current = new Date(
+    parseInt(date.substr(6)),
+  );
   const elapsed = (new Date() - current) / 1000;
 
   return Math.round(elapsed);
