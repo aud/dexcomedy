@@ -83,7 +83,7 @@ async function pushLatestGlucoseLevels() {
   const latestEntry = data[0];
 
   asap.send({
-    mmol: mgdlToMmol(latestEntry.Value),
+    mgdl: latestEntry.Value,
     trendAsset: normalizedTrendAssetName(latestEntry.Trend),
     lowThreshold: lowGloucoseThreshold(),
     highThreshold: highGloucoseThreshold(),

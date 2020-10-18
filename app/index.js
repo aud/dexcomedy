@@ -2,14 +2,16 @@ import asap from "fitbit-asap/app"
 import document from "document";
 import {normalizedDate, normalizedLastUpdatedTime} from '../common/utilities';
 import {hrm, steps, clock, battery} from './default-stats';
-import {
-  startAlert,
-  stopAlert,
-  lowMmolLevelDetected,
-  highMmolLevelDetected,
-  lowPrevDismissed,
-  highPrevDismissed,
-} from './notifications';
+import {BloodSugar} from './bloodsugar';
+import {Notifier} from './notifier';
+// import {
+//   startAlert,
+//   stopAlert,
+//   lowMmolLevelDetected,
+//   highMmolLevelDetected,
+//   lowPrevDismissed,
+//   highPrevDismissed,
+// } from './notifications';
 
 const TICK_UPDATE_CALLBACK_BUFFER = 1000; // 1s
 const STALE_DATA_BUFFER           = 600; // 10m
@@ -69,17 +71,25 @@ const registerStatsCallbacks = () => {
   }
 
   asap.onmessage = ({
-    mmol,
+    mgdl,
     trendAsset,
     lastUpdated,
     lowThreshold,
     highThreshold
   }) => {
+
+    const bloodSugar = new BloodSugar({mgdl, lowThreshold, highThreshold});
+
+    console.error(`Normal: ${bloodSugar.normal}`)
+    console.error(`Low: ${bloodSugar.low}`)
+    console.error(`High: ${bloodSugar.high}`)
+    console.error(`Mmol: ${bloodSugar.mmol}`)
+
     const mmolElm            = document.getElementById('Mmol');
     const mmolLastUpdatedElm = document.getElementById('MmolLastUpdated');
     const mmolTrendArrowElm  = document.getElementById('ArrowIcon');
 
-    mmolElm.text            = mmol;
+    mmolElm.text            = bloodSugar.mmol;
     mmolTrendArrowElm.href  = trendAsset;
     mmolLastUpdatedElm.text = normalizedLastUpdatedTime(lastUpdated);
 
@@ -101,16 +111,27 @@ const registerStatsCallbacks = () => {
     if (interval) clearInterval(interval)
     lazySetInterval(tickUpdateCallback);
 
-    // Alerting
-    if (lowMmolLevelDetected({mmol, lowThreshold})) {
-      if (lowPrevDismissed()) return;
-
-      createAlertPrompt({type: 'Low', mmol});
-    } else if (highMmolLevelDetected({mmol, highThreshold})) {
-      if (highPrevDismissed()) return;
-
-      createAlertPrompt({type: 'High', mmol});
+    if (!bloodSugar.normal) {
+      const notifier = new Notifier(bloodSugar);
+      notifier.notify()
     }
+
+    // if (bloodSugar.low) {
+    //   createAlertPrompt({type: 'Low', mmol: bloodSugar.mmol});
+    // } else if (bloodSugar.high) {
+    //   createAlertPrompt({type: 'High', mmol: bloodSugar.mmol});
+    // }
+
+    // // Alerting
+    // if (lowMmolLevelDetected({mmol, lowThreshold})) {
+    //   if (lowPrevDismissed()) return;
+
+    //   createAlertPrompt({type: 'Low', mmol});
+    // } else if (highMmolLevelDetected({mmol, highThreshold})) {
+    //   if (highPrevDismissed()) return;
+
+    //   createAlertPrompt({type: 'High', mmol});
+    // }
   }
 }
 
