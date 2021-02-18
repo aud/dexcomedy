@@ -5,8 +5,9 @@
   "license": "MIT",
   "devDependencies": {
     "@fitbit/sdk": "^4.1.0",
+    "@fitbit/sdk-cli": "^1.7.3",
     "fitbit-asap": "^1.2.3",
-    "@fitbit/sdk-cli": "^1.7.1"
+    "fitbit-sdk-types": "^6.0.3"
   },
   "fitbit": {
     "appUUID": "afc962ef-e367-4ecd-ac84-d3259ed94e40",
@@ -20,6 +21,7 @@
       "access_internet"
     ],
     "buildTargets": [
+      "higgs",
       "meson",
       "gemini",
       "mira"
