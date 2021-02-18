@@ -2,7 +2,7 @@
   "name": "dexcomedy",
   "version": "0.1.0",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "@fitbit/sdk": "^4.1.0",
     "fitbit-asap": "^1.2.3",
