@@ -6,17 +6,20 @@ interface Coords {
 }
 
 export async function fetchWeather({latitude, longitude}: Coords) {
-  console.error("test", getOpenWeatherMapApiKey())
-  const result = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${getOpenWeatherMapApiKey()}`,
-  );
+  try {
+    const result = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${getOpenWeatherMapApiKey()}`,
+    );
 
-  const {
-    name: city,
-    main: {
-      temp: temperature,
-    }
-  } = await result.json();
+    const {
+      main: {
+        temp: temperature,
+      }
+    } = await result.json();
 
-  return {city, temperature};
+    return {temperature};
+  } catch (err) {
+    console.error("error: ", JSON.stringify(err));
+    return {temperature: undefined}
+  }
 }
