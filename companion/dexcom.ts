@@ -47,8 +47,6 @@ export async function fetchDexcomData() {
       },
     })
 
-    console.log("xxyz", result)
-
     const {
       // 'ST' seems to be the last updated date
       ST: lastUpdated,

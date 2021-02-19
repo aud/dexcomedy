@@ -1,4 +1,5 @@
 import {getOpenWeatherMapApiKey} from './store';
+import {Result} from '../common/result';
 
 interface Coords {
   latitude: string;
@@ -17,9 +18,8 @@ export async function fetchWeather({latitude, longitude}: Coords) {
       }
     } = await result.json();
 
-    return {temperature};
+    return Result.success({temperature});
   } catch (err) {
-    console.error("error: ", JSON.stringify(err));
-    return {temperature: undefined}
+    return Result.failure(err);
   }
 }

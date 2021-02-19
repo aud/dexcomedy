@@ -8,12 +8,18 @@ import {getWeatherEnabled, getWeatherUnit} from './store';
 const buildWeather = async (): Promise<Weather> => {
   if (getWeatherEnabled()) {
     const {latitude, longitude} = await coordinates();
-    const {temperature} = await fetchWeather({latitude, longitude});
+    const result = await fetchWeather({latitude, longitude});
+
+    // Future Bugsnag notify?
+    console.error("PLS", result)
+    if (result.error) {
+      console.error(result.error)
+    }
 
     return {
       enabled: true,
       unit: getWeatherUnit(),
-      temperature,
+      temperature: result.payload?.temperature,
     }
   } else {
     return {
@@ -31,8 +37,9 @@ const buildAlerting = (): Alerting => {
 const buildGloucose = async (): Promise<any> => {
   const result = await fetchDexcomData()
 
-  console.error("REWTF", result.payload)
+  // console.error("resu", result)
 
+  return {}
   // return {
   //   unit: "mgdl",
   //   lastUpdatedMs: lastUpdated,
