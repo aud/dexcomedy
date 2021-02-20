@@ -5,7 +5,7 @@ import asap from "fitbit-asap/app"
 const data = document.getElementById("Mmol")
 
 asap.onmessage = message => {
-  // console.error(JSON.stringify(message))
+  console.error(JSON.stringify(message))
 }
 
 // console.error(data)

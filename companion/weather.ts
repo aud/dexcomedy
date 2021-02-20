@@ -6,19 +6,19 @@ interface Coords {
   longitude: string;
 }
 
-export async function fetchWeather({latitude, longitude}: Coords) {
+export async function fetchWeather({latitude, longitude}: Coords): Promise<Result> {
   try {
     const result = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${getOpenWeatherMapApiKey()}`,
     );
 
-    const {
-      main: {
-        temp: temperature,
-      }
-    } = await result.json();
+    const json = await result.json();
 
-    return Result.success({temperature});
+    if (result.status !== 200) {
+      throw new Error(`openweathermap responded with ${result.status}`);
+    }
+
+    return Result.success({temperature: json.main.temp});
   } catch (err) {
     return Result.failure(err);
   }

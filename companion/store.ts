@@ -21,6 +21,14 @@ export function getDexcomPassword() {
   return deserializedContents(STORAGE_KEYS.DEXCOM.PASSWORD).name;
 }
 
+export function getDexcomUnit() {
+  return deserializedContents(STORAGE_KEYS.DEXCOM.UNIT).values[0].name;
+}
+
+export function getClockFormat() {
+  return deserializedContents(STORAGE_KEYS.CLOCK.FORMAT).values[0].name;
+}
+
 function deserializedContents(key) {
   return JSON.parse(settingsStorage.getItem(key) || "{}");
 }

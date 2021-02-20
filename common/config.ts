@@ -15,5 +15,9 @@ export const STORAGE_KEYS = {
   DEXCOM: {
     USERNAME: "dexcom_username",
     PASSWORD: "dexcom_password",
+    UNIT: "dexcom_unit",
+  },
+  CLOCK: {
+    FORMAT: "clock_format",
   },
 }

@@ -17,6 +17,15 @@ export const Dexcom = () => {
     <Section title={titleMarkup} description={descriptionMarkup}>
       <TextInput label="Dexcom username" settingsKey={STORAGE_KEYS.DEXCOM.USERNAME} />
       <TextInput label="Dexcom password" settingsKey={STORAGE_KEYS.DEXCOM.PASSWORD} />
+
+      <Select
+        label="Unit (mg/dL or mmol)"
+        settingsKey={STORAGE_KEYS.DEXCOM.UNIT}
+        options={[
+          {name: "mg/dL"},
+          {name: "mmol"},
+        ]}
+      />
     </Section>
   );
 }

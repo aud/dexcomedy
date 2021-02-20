@@ -7,13 +7,13 @@ export class Result {
     return new Result(true, null, payload);
   }
 
-  static failure(error: string) {
-    return new Result(false, error, null);
+  static failure(error: Error) {
+    return new Result(false, error.message, null);
   }
 
   constructor(success, error = null, payload = null) {
     this.success = success;
-    this.error = this.error ? `Error: ${error}` : null;
+    this.error = error || null;
     this.payload = payload;
   }
 }
