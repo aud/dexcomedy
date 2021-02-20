@@ -29,6 +29,18 @@ export function getClockFormat() {
   return deserializedContents(STORAGE_KEYS.CLOCK.FORMAT).values[0].name;
 }
 
+export function getAlertingEnabled() {
+  return deserializedContents(STORAGE_KEYS.ALERTING.ENABLED);
+}
+
+export function getAlertingLowThreshold() {
+  return deserializedContents(STORAGE_KEYS.ALERTING.LOW_THRESHOLD).name;
+}
+
+export function getAlertingHighThreshold() {
+  return deserializedContents(STORAGE_KEYS.ALERTING.HIGH_THRESHOLD).name;
+}
+
 function deserializedContents(key) {
   return JSON.parse(settingsStorage.getItem(key) || "{}");
 }

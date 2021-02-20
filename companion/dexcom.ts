@@ -9,7 +9,6 @@ const DEXCOM_APP_ID = "d8665ade-9673-4e27-9ff6-92db4ce13d13";
 // TODO: This URL changes based on account region. Make country configurable?
 const dexcomLatestGloucoseUrl = sessionId => "https://shareous1.dexcom.com/ShareWebServices/Services/Publisher/ReadPublisherLatestGlucoseValues?sessionId=" + sessionId + "&minutes=1440&maxCount=1"
 
-
 async function fetchDexcomSessionId(): Promise<Result> {
   try {
     const result = await fetch(DEXCOM_LOGIN_URL, {

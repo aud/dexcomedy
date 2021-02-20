@@ -4,7 +4,15 @@ import {fetchWeather} from './weather';
 import {coordinates} from './geolocation';
 import {fetchDexcomData} from './dexcom';
 import {mgdlToMmol} from '../common/utilities';
-import {getWeatherEnabled, getWeatherUnit, getDexcomUnit, getClockFormat} from './store';
+import {
+  getWeatherEnabled,
+  getWeatherUnit,
+  getDexcomUnit,
+  getClockFormat,
+  getAlertingEnabled,
+  getAlertingLowThreshold,
+  getAlertingHighThreshold,
+} from './store';
 
 const buildWeather = async (): Promise<Weather> => {
   if (getWeatherEnabled()) {
@@ -29,8 +37,16 @@ const buildWeather = async (): Promise<Weather> => {
 }
 
 const buildAlerting = (): Alerting => {
-  return {
-    enabled: false,
+  if (getAlertingEnabled) {
+    return {
+      enabled: true,
+      lowThreshold: getAlertingLowThreshold(),
+      highThreshold: getAlertingHighThreshold(),
+    }
+  } else {
+    return {
+      enabled: false,
+    }
   }
 }
 
