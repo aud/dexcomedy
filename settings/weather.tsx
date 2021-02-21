@@ -29,8 +29,8 @@ export const Weather = props => {
         label="Unit (celcius or fahrenheit)"
         settingsKey={STORAGE_KEYS.WEATHER.UNIT}
         options={[
-          {name: "fahrenheit"},
-          {name: "celcius"},
+          {name: "C"},
+          {name: "F"},
         ]}
         disabled={!(props.settings[STORAGE_KEYS.WEATHER.ENABLED] === "true")}
       />

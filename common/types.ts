@@ -6,7 +6,7 @@ export interface Alerting {
 
 export interface Weather {
   enabled: boolean;
-  unit?: 'celcius' | 'fahrenheit';
+  unit?: 'C' | 'F';
   temperature?: number;
 }
 
@@ -28,4 +28,5 @@ export interface Payload {
   weather: Weather;
   gloucose: Gloucose;
   clock: Clock;
+  type: 'refresh' | 'update';
 }

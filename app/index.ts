@@ -2,6 +2,7 @@ import document from "document";
 import asap from "fitbit-asap/app"
 import {Payload, Gloucose, Weather} from "../common/types";
 import {normalizedLastUpdatedTime} from "../common/utilities";
+import {me} from "appbit";
 
 // "alerting":{"enabled":true,"lowThreshold":"4.4","highThreshold":"12.3"},
 // "weather":{"enabled":true,"unit":"fahrenheit","temperature":275.48}},
@@ -44,16 +45,15 @@ const drawGloucose = (gloucose: Gloucose) => {
 
 const drawWeather = (weather: Weather) => {
   const weatherElm = getChildElementById('Weather');
+  const DEGREE_HTML_CODE = "&#176;"
 
-  weatherElm.text = weather.temperature.toString();
+  weatherElm.text = weather.temperature.toString()
+    + DEGREE_HTML_CODE
+    + " "
+    + weather.unit;
 }
 
-const newMessageHandler = ({alerting, weather, gloucose, clock}: Payload) => {
-  console.log("Got weather: ", JSON.stringify(weather));
-  console.log("Got alerting: ", JSON.stringify(alerting));
-  console.log("Got gloucose: ", JSON.stringify(gloucose));
-  console.log("Got clock: ", JSON.stringify(clock));
-
+const updateHandler = ({alerting, weather, gloucose, clock}: Payload) => {
   drawGloucose(gloucose);
 
   if (weather.enabled) {
@@ -69,7 +69,20 @@ const newMessageHandler = ({alerting, weather, gloucose, clock}: Payload) => {
   // drawHeartRate();
   // drawDate();
   // drawSteps();
+}
 
+
+const refreshHandler = () => {
+  me.exit();
+}
+
+const newMessageHandler = props => {
+  switch(props.type) {
+    case "refresh":
+      refreshHandler();
+    case "update":
+      updateHandler(props)
+  }
 }
 
 asap.onmessage = newMessageHandler;

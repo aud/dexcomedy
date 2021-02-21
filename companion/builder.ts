@@ -25,7 +25,7 @@ export const buildWeather = async (): Promise<Weather> => {
 
     const unit = getWeatherUnit();
 
-    const temperature = unit === "celcius"
+    const temperature = unit === "c"
      ? kelvinToCelcius(result.payload.temperature)
      : kelvinToFahrenheit(result.payload.temperature);
 
