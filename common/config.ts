@@ -9,9 +9,6 @@ export const STORAGE_KEYS = {
     PASSWORD: "dexcom_password",
     UNIT: "dexcom_unit",
   },
-  CLOCK: {
-    FORMAT: "clock_format",
-  },
   ALERTING: {
     ENABLED: "alerting_enabled",
     LOW_THRESHOLD: "alerting_low_threshold",

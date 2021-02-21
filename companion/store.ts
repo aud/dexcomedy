@@ -26,10 +26,6 @@ export function getDexcomUnit() {
   return deserializedContents(STORAGE_KEYS.DEXCOM.UNIT, {type: "select"});
 }
 
-export function getClockFormat() {
-  return deserializedContents(STORAGE_KEYS.CLOCK.FORMAT, {type: "select"});
-}
-
 export function getAlertingEnabled() {
   return deserializedContents(STORAGE_KEYS.ALERTING.ENABLED, {type: "toggle"});
 }

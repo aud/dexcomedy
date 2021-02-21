@@ -7,6 +7,11 @@
   </svg>
 
   <use href="#tile-list" id="ListRef">
+    <use href="#tile-list-header" class="tile-list-item" id="Clock">
+      <text>-</text>
+      <image class='Icon' href="clock.png" />
+    </use>
+
     <use href="#tile-list-header" class="tile-list-item" id="Weather">
       <text>-</text>
       <image class='Icon' href="weather.png" />

@@ -1,4 +1,4 @@
-import {Payload, Weather, Alerting, Gloucose, Clock} from '../common/types';
+import {Payload, Weather, Alerting, Gloucose} from '../common/types';
 import {fetchWeather} from './weather';
 import {coordinates} from './geolocation';
 import {fetchDexcomData} from './dexcom';
@@ -7,7 +7,6 @@ import {
   getWeatherEnabled,
   getWeatherUnit,
   getDexcomUnit,
-  getClockFormat,
   getAlertingEnabled,
   getAlertingLowThreshold,
   getAlertingHighThreshold,
@@ -25,7 +24,7 @@ export const buildWeather = async (): Promise<Weather> => {
 
     const unit = getWeatherUnit();
 
-    const temperature = unit === "c"
+    const temperature = unit === "C"
      ? kelvinToCelcius(result.payload.temperature)
      : kelvinToFahrenheit(result.payload.temperature);
 
@@ -74,11 +73,5 @@ export const buildGloucose = async (): Promise<Gloucose> => {
     trend: result.payload.trend,
     value,
     unit,
-  }
-}
-
-export const buildClock = (): Clock => {
-  return {
-    format: getClockFormat(),
   }
 }

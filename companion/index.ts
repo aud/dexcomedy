@@ -1,5 +1,5 @@
 import asap from "fitbit-asap/companion"
-import {buildWeather, buildAlerting, buildClock, buildGloucose} from './builder';
+import {buildWeather, buildAlerting, buildGloucose} from './builder';
 import {settingsStorage} from "settings";
 
 const UPDATE_BUFFER = 30000; // 30s
@@ -19,7 +19,6 @@ settingsStorage.addEventListener("change", () => {
 
   const lazySend = async () => asap.send({
     alerting: buildAlerting(),
-    clock: buildClock(),
     gloucose: await buildGloucose(),
     weather: await buildWeather(),
     type: "update",
