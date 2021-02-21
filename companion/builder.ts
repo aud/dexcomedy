@@ -2,7 +2,7 @@ import {Payload, Weather, Alerting, Gloucose, Clock} from '../common/types';
 import {fetchWeather} from './weather';
 import {coordinates} from './geolocation';
 import {fetchDexcomData} from './dexcom';
-import {mgdlToMmol} from '../common/utilities';
+import {mgdlToMmol, kelvinToCelcius, kelvinToFahrenheit} from '../common/utilities';
 import {
   getWeatherEnabled,
   getWeatherUnit,
@@ -23,10 +23,16 @@ export const buildWeather = async (): Promise<Weather> => {
       throw new Error(result.error);
     }
 
+    const unit = getWeatherUnit();
+
+    const temperature = unit === "celcius"
+     ? kelvinToCelcius(result.payload.temperature)
+     : kelvinToFahrenheit(result.payload.temperature);
+
     return {
       enabled: true,
-      unit: getWeatherUnit(),
-      temperature: result.payload.temperature,
+      temperature: Math.round(temperature),
+      unit,
     }
   } else {
     return {

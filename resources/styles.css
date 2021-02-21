@@ -1,0 +1,38 @@
+#Gloucose {
+  x: 5;
+  y: 100%-35;
+  font-size: 120;
+  font-family: Tungsten-Medium;
+  fill: white;
+  text-length: 64;
+}
+
+#GloucoseLastUpdated {
+  x: 10;
+  y: 100%-10;
+  font-size: 25;
+  font-family: Tungsten-Medium;
+  fill: white;
+  text-length: 64;
+}
+
+.Icon {
+  height: 32;
+  width: 32;
+  x: -15%;
+  y: 22;
+}
+
+.tile-list-item {
+  height: 70;
+  x: 215;
+  text-length: 64;
+}
+
+.tile-list-item text {
+  height: 30;
+  font-family: Tungsten-Medium;
+  font-size: 40;
+  fill: white;
+  text-length: 64;
+}
