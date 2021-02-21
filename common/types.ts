@@ -30,3 +30,7 @@ export interface Payload {
   clock: Clock;
   type: 'refresh' | 'update';
 }
+
+export interface StorageItemType {
+  type: 'toggle' | 'input' | 'select';
+}
