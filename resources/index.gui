@@ -1,32 +1,34 @@
 <svg viewport-fill="black">
   <svg id="Main">
-    <text id="Clock">-</text>
-
-    <line x1="15" y1="140" x2="150" y2="140" fill="#e9dde5" stroke-width="1" />
-
     <text id="Gloucose">-</text>
-    <text id="GloucoseLastUpdated">-</text>
+    <text id="GloucoseLastUpdated"></text>
+    <image id="GloucoseArrowIcon" href="" />
+
+    <use href="#tile-list" id="ListRef">
+      <use href="#tile-list-header" class="tile-list-item" id="Clock">
+        <text>-</text>
+        <image class='Icon' href="images/clock.png" />
+      </use>
+
+      <use href="#tile-list-item" class="tile-list-item" id="Date">
+        <text>-</text>
+        <image class='Icon' href="images/calendar.png" />
+      </use>
+
+      <use href="#tile-list-item" class="tile-list-item" id="Weather">
+        <text>-</text>
+        <image class='Icon' href="images/weather.png" />
+      </use>
+
+      <use href="#tile-list-item" class="tile-list-item" id="Steps">
+        <text>-</text>
+        <image class='Icon' href="images/shoe.png" />
+      </use>
+
+      <use href="#tile-list-item" class="tile-list-item" id="HeartRate">
+        <text>-</text>
+        <image class='Icon' href="images/heart.png" />
+      </use>
+    </use>
   </svg>
-
-  <use href="#tile-list" id="ListRef">
-    <use href="#tile-list-header" class="tile-list-item" id="Weather">
-      <text>-</text>
-      <image class='Icon' href="weather.png" />
-    </use>
-
-    <use href="#tile-list-item" class="tile-list-item" id="Date">
-      <text>-</text>
-      <image class='Icon' href="calendar.png" />
-    </use>
-
-    <use href="#tile-list-item" class="tile-list-item" id="Steps">
-      <text>-</text>
-      <image class='Icon' href="shoe.png" />
-    </use>
-
-    <use href="#tile-list-item" class="tile-list-item" id="HeartRate">
-      <text>-</text>
-      <image class='Icon' href="heart.png" />
-    </use>
-  </use>
 </svg>

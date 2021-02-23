@@ -1,16 +1,11 @@
 import document from "document";
 import asap from "fitbit-asap/app"
 import {Payload, Gloucose, Weather, Clock} from "../common/types";
-import {normalizedLastUpdatedTime, normalizedDate} from "../common/utilities";
+import {normalizedLastUpdatedTime, normalizedDate, assetPathForTrend} from "../common/utilities";
 import {me} from "appbit";
 import {clock} from "./clock";
 import {hrm} from "./hrm";
 import {steps} from "./steps";
-
-// "alerting":{"enabled":true,"lowThreshold":"4.4","highThreshold":"12.3"},
-// "weather":{"enabled":true,"unit":"fahrenheit","temperature":275.48}},
-// "gloucose":{"lastUpdatedSec":301,"trend":"steady","value":14.3,"unit":"mmol"},
-// "clock":{"format":"12"},
 
 const TICK_UPDATE_CALLBACK_BUFFER = 1000; // 1s
 const STALE_DATA_BUFFER = 600; // 10m
@@ -23,17 +18,19 @@ const getChildElementById = id => {
 
 const drawGloucose = (gloucose: Gloucose) => {
   const gloucoseElm = document.getElementById('Gloucose');
-  const lastUpdatedElm = document.getElementById('GloucoseLastUpdated');
+  const gloucoseLastUpdatedElm = document.getElementById('GloucoseLastUpdated');
+  const gloucoseTrendArrowElm = document.getElementById('GloucoseArrowIcon');
 
   gloucoseElm.text = gloucose.value.toString();
-  lastUpdatedElm.text = normalizedLastUpdatedTime(gloucose.lastUpdatedSec);
+  gloucoseLastUpdatedElm.text = normalizedLastUpdatedTime(gloucose.lastUpdatedSec);
+  (gloucoseTrendArrowElm as any).href = assetPathForTrend(gloucose.trend);
 
   // Artifical ticker
   let ticker = gloucose.lastUpdatedSec;
 
   const tickUpdateCallback = () => {
     ticker += 1;
-    lastUpdatedElm.text = normalizedLastUpdatedTime(ticker);
+    gloucoseLastUpdatedElm.text = normalizedLastUpdatedTime(ticker);
 
     // Don't show stale data if last known update buffer exceeded
     if (ticker >= STALE_DATA_BUFFER) {
@@ -63,8 +60,7 @@ const drawWeather = (weather: Weather) => {
 }
 
 const drawClock = () => {
-  const clockElm = document.getElementById('Clock');
-
+  const clockElm = getChildElementById("Clock");
   clock(time => clockElm.text = time);
 }
 
@@ -84,26 +80,12 @@ const drawDate = () => {
 }
 
 const updateHandler = ({alerting, weather, gloucose}: Payload) => {
-  console.error(JSON.stringify(alerting))
-  console.error(JSON.stringify(weather))
-  console.error(JSON.stringify(gloucose))
-
   drawClock();
   drawDate();
   drawSteps();
   drawHrm();
   drawGloucose(gloucose);
   drawWeather(weather);
-
-  // if (alerting.enabled) {
-  //   drawAlerting();
-  // }
-
-  // drawGloucose();
-  // drawClock();
-  // drawHeartRate();
-  // drawDate();
-  // drawSteps();
 }
 
 

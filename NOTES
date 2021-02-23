@@ -1,0 +1,12 @@
+Alerting:
+* Ability to set low/high thresholds.
+* LOW threshold is hit, what happens:
+  * Vibration starts
+  * Screen taken over with alert prompt showing you've hit a LOW with the BG.
+  * Click button to dismiss.
+  * If you're still exceeding thresholds 15 minutes later, realert
+  * What happens if you don't click the ack?:
+    * Always visually show the threshold screen unless ackd.
+    * If no action for 2 minutes, STOP vibration.
+
+Bugs: Charging watch for 2 hours, low alerts build up and get into vibration loop?

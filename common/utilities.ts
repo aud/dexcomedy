@@ -88,3 +88,7 @@ export function normalizedDate(): string {
 
   return DAYS[dayOfWeek] + '. ' + dayOfMonth;
 }
+
+export function assetPathForTrend(trend: string): string {
+  return "images/" + trend + ".png";
+}
