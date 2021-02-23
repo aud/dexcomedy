@@ -41,10 +41,11 @@ export function getAlertingHighThreshold() {
 function deserializedContents(key, {type}: StorageItemType) {
   switch(type) {
     case "toggle":
-      return JSON.parse(settingsStorage.getItem(key) || "{}");
+      return JSON.parse(settingsStorage.getItem(key));
     case "input":
-      return JSON.parse(settingsStorage.getItem(key) || "{}").name;
+      return JSON.parse(settingsStorage.getItem(key))?.name;
     case "select":
-      return JSON.parse(settingsStorage.getItem(key) || "{}").values[0].name;
+      const values = JSON.parse(settingsStorage.getItem(key))?.values
+      return values?.length ? values[0].name : null;
   }
 }

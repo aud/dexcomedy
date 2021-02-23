@@ -1,9 +1,11 @@
 import document from "document";
 import asap from "fitbit-asap/app"
 import {Payload, Gloucose, Weather, Clock} from "../common/types";
-import {normalizedLastUpdatedTime} from "../common/utilities";
+import {normalizedLastUpdatedTime, normalizedDate} from "../common/utilities";
 import {me} from "appbit";
 import {clock} from "./clock";
+import {hrm} from "./hrm";
+import {steps} from "./steps";
 
 // "alerting":{"enabled":true,"lowThreshold":"4.4","highThreshold":"12.3"},
 // "weather":{"enabled":true,"unit":"fahrenheit","temperature":275.48}},
@@ -46,29 +48,52 @@ const drawGloucose = (gloucose: Gloucose) => {
 
 const drawWeather = (weather: Weather) => {
   const weatherElm = getChildElementById('Weather');
-  const DEGREE_HTML_CODE = "&#176;"
 
-  weatherElm.text = weather.temperature.toString()
-    + DEGREE_HTML_CODE
-    + " "
-    + weather.unit;
+  if (weather.enabled) {
+    const DEGREE_HTML_CODE = "&#176;"
+
+    weatherElm.text = weather.temperature.toString()
+      + DEGREE_HTML_CODE
+      + " "
+      + weather.unit;
+  } else {
+    // Hide from DOM
+    // (weatherElm as any).style.display = "none";
+  }
 }
 
 const drawClock = () => {
-  const fitbitClock = clock();
-  const clockElm = getChildElementById('Clock');
+  const clockElm = document.getElementById('Clock');
 
-  fitbitClock.onTick(time => clockElm.text = time);
+  clock(time => clockElm.text = time);
+}
+
+const drawHrm = () => {
+  const hrmElm = getChildElementById("HeartRate");
+  hrm(hr => hrmElm.text = hr);
+}
+
+const drawSteps = () => {
+  const stepsElm = getChildElementById("Steps");
+  steps(count => stepsElm.text = count);
+}
+
+const drawDate = () => {
+  const dateElm = getChildElementById("Date");
+  dateElm.text = normalizedDate();
 }
 
 const updateHandler = ({alerting, weather, gloucose}: Payload) => {
-  drawGloucose(gloucose);
-
-  if (weather.enabled) {
-    drawWeather(weather);
-  }
+  console.error(JSON.stringify(alerting))
+  console.error(JSON.stringify(weather))
+  console.error(JSON.stringify(gloucose))
 
   drawClock();
+  drawDate();
+  drawSteps();
+  drawHrm();
+  drawGloucose(gloucose);
+  drawWeather(weather);
 
   // if (alerting.enabled) {
   //   drawAlerting();

@@ -68,3 +68,23 @@ export function normalizedLastUpdatedTime(seconds: number): string {
     return `${secs}s`;
   }
 }
+
+// Returns the current date in the format of (eg. Wed. 8)
+export function normalizedDate(): string {
+  const DAYS = [
+    'Sun',
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+  ];
+
+  const today = new Date();
+
+  const dayOfWeek  = today.getDay();
+  const dayOfMonth = today.getDate();
+
+  return DAYS[dayOfWeek] + '. ' + dayOfMonth;
+}

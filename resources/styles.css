@@ -16,6 +16,15 @@
   text-length: 64;
 }
 
+#Clock {
+  x: 5;
+  y: 100%-200;
+  font-size: 100;
+  font-family: Tungsten-Medium;
+  fill: white;
+  text-length: 64;
+}
+
 .Icon {
   height: 32;
   width: 32;

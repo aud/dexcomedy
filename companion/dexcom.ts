@@ -31,6 +31,12 @@ async function fetchDexcomSessionId(): Promise<Result> {
 
     const id = await result.json();
 
+    // Dexcom can sometimes return this when the username or password is in an
+    // invalid format (?), or null.
+    if (id === '00000000-0000-0000-0000-000000000000') {
+      throw new Error('Dexcom server responded with invalid session ID. This is likely due to incorrect credentials.');
+    }
+
     return Result.success(id)
   } catch (err) {
     return Result.failure(err)

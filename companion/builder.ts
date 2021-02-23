@@ -62,8 +62,10 @@ export const buildGloucose = async (): Promise<Gloucose> => {
     throw new Error(result.error);
   }
 
+  // Default to mmol if unset
+  const unit = getDexcomUnit() || "mmol"
+
   // The default value from Dexcom is mg/dL
-  const unit = getDexcomUnit();
   const value = unit === "mmol"
     ? mgdlToMmol(result.payload.value)
     : result.payload.value;
