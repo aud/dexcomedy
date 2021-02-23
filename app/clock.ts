@@ -3,7 +3,7 @@ import {preferences} from "user-settings";
 
 const withZeroPad = val => ('0' + val).slice(-2);
 
-export const clock = (callback) => {
+export const clock = (callback: Function) => {
   fitbitClock.granularity = 'seconds';
 
   return fitbitClock.ontick = evt => {

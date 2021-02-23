@@ -2,7 +2,7 @@ import {HeartRateSensor} from 'heart-rate';
 import {display} from 'display';
 
 // https://dev.fitbit.com/build/guides/sensors/heart-rate/
-export function hrm(callback) {
+export function hrm(callback: Function) {
   // @ts-ignore
   const hrm = new HeartRateSensor({frequency: 1});
 

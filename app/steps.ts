@@ -3,7 +3,7 @@ import {display} from 'display';
 
 const CALLBACK_BUFFER = 3000; // 3s
 
-export function steps(callback) {
+export function steps(callback: Function) {
   let interval;
 
   callback(today.adjusted.steps);

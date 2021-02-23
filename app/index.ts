@@ -1,11 +1,13 @@
 import document from "document";
 import asap from "fitbit-asap/app"
-import {Payload, Gloucose, Weather, Clock} from "../common/types";
+import {Payload, Gloucose, Weather, Clock, Alerting} from "../common/types";
 import {normalizedLastUpdatedTime, normalizedDate, assetPathForTrend} from "../common/utilities";
 import {me} from "appbit";
 import {clock} from "./clock";
 import {hrm} from "./hrm";
 import {steps} from "./steps";
+import {BloodSugar} from "./bloodsugar";
+import {Vibration} from "./vibration";
 
 const TICK_UPDATE_CALLBACK_BUFFER = 1000; // 1s
 const STALE_DATA_BUFFER = 600; // 10m
@@ -74,12 +76,26 @@ const drawDate = (column: string) => {
   dateElm.text = normalizedDate();
 }
 
+const drawAlerting = (gloucose: Gloucose, alerting: Alerting) => {
+  const bloodSugar = new BloodSugar({
+    lowThreshold: alerting.lowThreshold,
+    highThreshold: alerting.highThreshold,
+    currentBg: gloucose.value,
+  });
+
+  if (bloodSugar.abnormal) {
+    const vibration = new Vibration();
+    vibration.start();
+
+    console.error(bloodSugar)
+    console.error(vibration)
+  }
+}
+
 const updateHandler = ({alerting, weather, gloucose}: Payload) => {
   const fiveColumn = "-5-Column"
   const fourColumn = "-4-Column"
   let column;
-
-  drawGloucose(gloucose);
 
   if (weather.enabled) {
     (document.getElementById("AllIcons") as any).style.display = "inline";
@@ -89,7 +105,9 @@ const updateHandler = ({alerting, weather, gloucose}: Payload) => {
     column = fourColumn;
     (document.getElementById("IconsWithoutWeather") as any).style.display = "inline";
   }
+  drawAlerting(gloucose, alerting);
 
+  drawGloucose(gloucose);
   drawClock(column);
   drawDate(column);
   drawSteps(column);
