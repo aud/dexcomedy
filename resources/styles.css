@@ -23,20 +23,6 @@
   text-length: 64;
 }
 
-/* #Steps { */
-/*   x: 215; */
-/*   y: 100%-175; */
-/*   width: 100; */
-/*   height: 64; */
-/* } */
-
-/* #HeartRate { */
-/*   x: 215; */
-/*   y: 100%-60; */
-/*   width: 100; */
-/*   height: 64; */
-/* } */
-
 .Icon {
   height: 32;
   width: 32;
@@ -44,16 +30,38 @@
   y: 15;
 }
 
-.tile-list-item {
+.tile-list-item-five {
   height: 60;
   x: 215;
   text-length: 64;
 }
 
-.tile-list-item text {
+.tile-list-item-five text {
   height: 30;
   font-family: Tungsten-Medium;
   font-size: 40;
   fill: white;
   text-length: 64;
+}
+
+.tile-list-item-four {
+  height: 70;
+  x: 215;
+  text-length: 64;
+}
+
+.tile-list-item-four text {
+  height: 30;
+  font-family: Tungsten-Medium;
+  font-size: 40;
+  fill: white;
+  text-length: 64;
+}
+
+#AllIcons {
+  display: none;
+}
+
+#IconsWithoutWeather {
+  display: none;
 }

@@ -19,7 +19,11 @@ export const buildWeather = async (): Promise<Weather> => {
 
     // Future Bugsnag notify?
     if (result.error) {
-      throw new Error(result.error);
+      console.error("Disabled weather: ", result.error)
+
+      return {
+        enabled: false,
+      }
     }
 
     const unit = getWeatherUnit();
@@ -59,7 +63,7 @@ export const buildGloucose = async (): Promise<Gloucose> => {
 
   // Future Bugsnag notify?
   if (result.error) {
-    throw new Error(result.error);
+    console.error(result.error)
   }
 
   // Default to mmol if unset

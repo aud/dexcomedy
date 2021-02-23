@@ -43,51 +43,58 @@ const drawGloucose = (gloucose: Gloucose) => {
   tickerInterval = setInterval(tickUpdateCallback, TICK_UPDATE_CALLBACK_BUFFER);
 }
 
-const drawWeather = (weather: Weather) => {
-  const weatherElm = getChildElementById('Weather');
+const drawWeather = (weather: Weather, column: string) => {
+  const weatherElm = getChildElementById("Weather" + column);
 
-  if (weather.enabled) {
-    const DEGREE_HTML_CODE = "&#176;"
+  const DEGREE_HTML_CODE = "&#176;"
 
-    weatherElm.text = weather.temperature.toString()
-      + DEGREE_HTML_CODE
-      + " "
-      + weather.unit;
-  } else {
-    // Hide from DOM
-    // (weatherElm as any).style.display = "none";
-  }
+  weatherElm.text = weather.temperature.toString()
+  + DEGREE_HTML_CODE
+  + " "
+  + weather.unit;
 }
 
-const drawClock = () => {
-  const clockElm = getChildElementById("Clock");
+const drawClock = (column: string) => {
+  const clockElm = getChildElementById("Clock" + column);
   clock(time => clockElm.text = time);
 }
 
-const drawHrm = () => {
-  const hrmElm = getChildElementById("HeartRate");
+const drawHrm = (column: string) => {
+  const hrmElm = getChildElementById("HeartRate" + column);
   hrm(hr => hrmElm.text = hr);
 }
 
-const drawSteps = () => {
-  const stepsElm = getChildElementById("Steps");
+const drawSteps = (column: string) => {
+  const stepsElm = getChildElementById("Steps" + column);
   steps(count => stepsElm.text = count);
 }
 
-const drawDate = () => {
-  const dateElm = getChildElementById("Date");
+const drawDate = (column: string) => {
+  const dateElm = getChildElementById("Date" + column);
   dateElm.text = normalizedDate();
 }
 
 const updateHandler = ({alerting, weather, gloucose}: Payload) => {
-  drawClock();
-  drawDate();
-  drawSteps();
-  drawHrm();
-  drawGloucose(gloucose);
-  drawWeather(weather);
-}
+  const fiveColumn = "-5-Column"
+  const fourColumn = "-4-Column"
+  let column;
 
+  drawGloucose(gloucose);
+
+  if (weather.enabled) {
+    (document.getElementById("AllIcons") as any).style.display = "inline";
+    column = fiveColumn;
+    drawWeather(weather, column)
+  } else {
+    column = fourColumn;
+    (document.getElementById("IconsWithoutWeather") as any).style.display = "inline";
+  }
+
+  drawClock(column);
+  drawDate(column);
+  drawSteps(column);
+  drawHrm(column);
+}
 
 const refreshHandler = () => {
   me.exit();
