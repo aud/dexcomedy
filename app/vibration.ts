@@ -5,6 +5,9 @@ export class Vibration {
     this.started = false;
   }
 
+  get recentlyDismissed() {
+  }
+
   start() {
     console.error("Starting vibration")
     this.started = true;

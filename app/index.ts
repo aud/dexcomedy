@@ -11,8 +11,14 @@ import {Vibration} from "./vibration";
 
 const TICK_UPDATE_CALLBACK_BUFFER = 1000; // 1s
 const STALE_DATA_BUFFER = 600; // 10m
+const STOP_VIBRATION_BUFFER = 1200; // 2m
 
 let tickerInterval;
+let alertInterval;
+
+// Global vibration state
+const vibration = new Vibration();
+
 
 const getChildElementById = id => {
   return document.getElementById(id).firstChild;
@@ -83,13 +89,30 @@ const drawAlerting = (gloucose: Gloucose, alerting: Alerting) => {
     currentBg: gloucose.value,
   });
 
-  if (bloodSugar.abnormal) {
-    const vibration = new Vibration();
+  // If bloodsugar is abnormal
+  //   1. Start vibration
+  //   2. Show alert screen with alert you've hit a abnormal level
+  //   3. Require ACK on alert screen. Automatically disable vibration after 2 minutes.
+  //   4. Always visually show alert until dismissed
+  if (bloodSugar.abnormal && !vibration.recentlyDismissed) {
     vibration.start();
 
-    console.error(bloodSugar)
-    console.error(vibration)
+    if (alertInterval) clearInterval(alertInterval);
+
+    alertInterval = setInterval(() => {
+      vibration.stop();
+    }, 3000);
   }
+}
+
+const showAllIconsScreen = () => {
+  // @ts-ignore
+  document.getElementById("AllIcons").style.display = "inline";
+}
+
+const showIconsWithoutWeatherScreen = () => {
+  // @ts-ignore
+  document.getElementById("IconsWithoutWeather").style.display = "inline";
 }
 
 const updateHandler = ({alerting, weather, gloucose}: Payload) => {
@@ -98,15 +121,18 @@ const updateHandler = ({alerting, weather, gloucose}: Payload) => {
   let column;
 
   if (weather.enabled) {
-    (document.getElementById("AllIcons") as any).style.display = "inline";
+    showAllIconsScreen();
+
     column = fiveColumn;
+
     drawWeather(weather, column)
   } else {
-    column = fourColumn;
-    (document.getElementById("IconsWithoutWeather") as any).style.display = "inline";
-  }
-  drawAlerting(gloucose, alerting);
+    showIconsWithoutWeatherScreen();
 
+    column = fourColumn;
+  }
+
+  drawAlerting(gloucose, alerting);
   drawGloucose(gloucose);
   drawClock(column);
   drawDate(column);
