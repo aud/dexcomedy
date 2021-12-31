@@ -1,6 +1,7 @@
 import {
   DEXCOM_USERNAME_KEY,
   DEXCOM_PASSWORD_KEY,
+  DEXCOM_SERVER_KEY,
   DEXCOM_LOW_GLOUCOSE_THRESHOLD,
   DEXCOM_HIGH_GLOUCOSE_THRESHOLD
 } from '../common/dexcom-config';
@@ -22,6 +23,22 @@ const DexcomSecretsSection = () => {
     <Section title={titleMarkup} description={descriptionMarkup}>
       <TextInput title="Username" label="Username" settingsKey={DEXCOM_USERNAME_KEY} />
       <TextInput title="Password" label="Password" settingsKey={DEXCOM_PASSWORD_KEY} />
+    </Section>
+  );
+}
+
+const DexcomServerSection = () => {
+  const titleMarkup = (
+    <Text bold>
+      This server needs to be either "us" or "eu. If you're in the US, the server
+      should be "us". Any other country outside of the US (eg. Canada) is
+      classified as "eu" by Dexcom. If this is not correctly set nothing will work.
+    </Text>
+  );
+
+  return (
+    <Section title={titleMarkup}>
+      <TextInput label="Enter eu or us (no quotes)" settingsKey={DEXCOM_SERVER_KEY} />
     </Section>
   );
 }
@@ -60,6 +77,7 @@ function SettingsPage() {
   return (
     <Page>
       <DexcomSecretsSection />
+      <DexcomServerSection />
       <ThresholdSection />
     </Page>
   );

@@ -4,7 +4,8 @@ import {
   getDexcomUsername,
   getDexcomPassword,
   getDexcomLowThreshold,
-  getDexcomHighThreshold
+  getDexcomHighThreshold,
+  getDexcomServer
 } from './utilities';
 import {settingsStorage} from 'settings';
 
@@ -14,6 +15,7 @@ const DEFAULT_HIGH_GLOUCOSE_THRESHOLD = 11.1;
 
 let username = getDexcomUsername();
 let password = getDexcomPassword();
+let dexcomServer = getDexcomServer();
 let lowThreshold = getDexcomLowThreshold();
 let highThreshold = getDexcomHighThreshold();
 
@@ -22,6 +24,7 @@ let highThreshold = getDexcomHighThreshold();
 settingsStorage.onchange = () => {
   username = getDexcomUsername();
   password = getDexcomPassword();
+  dexcomServer = getDexcomServer();
   lowThreshold = getDexcomLowThreshold();
   highThreshold = getDexcomHighThreshold();
 
@@ -29,12 +32,6 @@ settingsStorage.onchange = () => {
   // the update buffer
   pushLatestGlucoseLevels();
 }
-
-const client = new DexcomClient({
-  username,
-  password,
-  server: "eu",
-});
 
 function lowGloucoseThreshold() {
   return lowThreshold || DEFAULT_LOW_GLOUCOSE_THRESHOLD;
@@ -45,6 +42,12 @@ function highGloucoseThreshold() {
 }
 
 async function pushLatestGlucoseLevels() {
+  const client = new DexcomClient({
+    username,
+    password,
+    server: dexcomServer,
+  });
+
   const data = await client.getEstimatedGlucoseValues();
   const latestEntry = data[0];
 

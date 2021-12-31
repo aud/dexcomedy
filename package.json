@@ -10,7 +10,7 @@
     "dexcom-share-api": "^1.0.6"
   },
   "fitbit": {
-    "appUUID": "afc962ef-e367-4ecd-ac84-d3259ed94e40",
+    "appUUID": "98464861-e584-4c18-973c-ae4f686badbc",
     "appType": "clockface",
     "appDisplayName": "Dexcomedy",
     "wipeColor": "#ffffff",
