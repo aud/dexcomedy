@@ -53,7 +53,7 @@ async function pushLatestGlucoseLevels() {
   )
 
   asap.send({
-    mmol: latestEntry.mmol,
+    mmol: Math.round(latestEntry.mmol, 1),
     trend: latestEntry.trend,
     lowThreshold: lowGloucoseThreshold(),
     highThreshold: highGloucoseThreshold(),
