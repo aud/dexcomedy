@@ -1,14 +1,5 @@
 import asap from "fitbit-asap/companion"
-import {
-  DEXCOM_LOGIN_URL,
-  DEXCOM_APP_ID,
-  dexcomLatestGloucoseUrl
-} from '../common/dexcom-config';
-import {
-  mgdlToMmol,
-  normalizedTrendAssetName,
-  lastUpdatedTimeInSeconds
-} from '../common/utilities';
+import {DexcomClient} from "dexcom-share-api"
 import {
   getDexcomUsername,
   getDexcomPassword,
@@ -39,6 +30,12 @@ settingsStorage.onchange = () => {
   pushLatestGlucoseLevels();
 }
 
+const client = new DexcomClient({
+  username,
+  password,
+  server: "eu",
+});
+
 function lowGloucoseThreshold() {
   return lowThreshold || DEFAULT_LOW_GLOUCOSE_THRESHOLD;
 }
@@ -47,48 +44,20 @@ function highGloucoseThreshold() {
   return highThreshold || DEFAULT_HIGH_GLOUCOSE_THRESHOLD;
 }
 
-async function fetchDexcomSessionData() {
-  const sessionId = await fetchDexcomSessionId();
-
-  const result = await fetch(dexcomLatestGloucoseUrl(sessionId), {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  })
-
-  return await result.json();
-}
-
-async function fetchDexcomSessionId() {
-  const result = await fetch(DEXCOM_LOGIN_URL, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      applicationId: DEXCOM_APP_ID,
-      accountName: username,
-      password: password,
-    })
-  })
-
-  return await result.json();
-}
-
 async function pushLatestGlucoseLevels() {
-  const data = await fetchDexcomSessionData();
+  const data = await client.getEstimatedGlucoseValues();
   const latestEntry = data[0];
 
+  const lastUpdatedTimeInSeconds = Math.round(
+    (new Date().getTime() - new Date(latestEntry.timestamp).getTime()) / 1000,
+  )
+
   asap.send({
-    mmol: mgdlToMmol(latestEntry.Value),
-    trendAsset: normalizedTrendAssetName(latestEntry.Trend),
+    mmol: latestEntry.mmol,
+    trend: latestEntry.trend,
     lowThreshold: lowGloucoseThreshold(),
     highThreshold: highGloucoseThreshold(),
-    // 'ST' seems to be the last updated date
-    lastUpdated: lastUpdatedTimeInSeconds(latestEntry.ST),
+    lastUpdated: lastUpdatedTimeInSeconds
   })
 }
 

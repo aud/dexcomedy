@@ -70,7 +70,7 @@ const registerStatsCallbacks = () => {
 
   asap.onmessage = ({
     mmol,
-    trendAsset,
+    trend,
     lastUpdated,
     lowThreshold,
     highThreshold
@@ -80,7 +80,7 @@ const registerStatsCallbacks = () => {
     const mmolTrendArrowElm  = document.getElementById('ArrowIcon');
 
     mmolElm.text            = mmol;
-    mmolTrendArrowElm.href  = trendAsset;
+    mmolTrendArrowElm.href  = `images/${trend}.png`;
     mmolLastUpdatedElm.text = normalizedLastUpdatedTime(lastUpdated);
 
     // Create an artificial ticker

@@ -1,12 +1,13 @@
 {
   "name": "dexcomedy",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "license": "UNLICENSED",
   "devDependencies": {
     "@fitbit/sdk": "^4.1.0",
+    "@fitbit/sdk-cli": "^1.7.1",
     "fitbit-asap": "^1.2.3",
-    "@fitbit/sdk-cli": "^1.7.1"
+    "dexcom-share-api": "^1.0.6"
   },
   "fitbit": {
     "appUUID": "afc962ef-e367-4ecd-ac84-d3259ed94e40",
